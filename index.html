@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Teste de Compatibilidade de Casal — Sintonia (grátis, cada um responde no seu celular)</title>
+<meta name="description" content="Teste de compatibilidade de casal online: 20 perguntas, cada um responde no próprio celular sem ver as respostas do outro. Descubram a % de sintonia de vocês. Grátis.">
+<link rel="canonical" href="https://giogas-pm.github.io/sintonia/">
+<meta property="og:title" content="Qual a sintonia de vocês? Teste de compatibilidade de casal">
+<meta property="og:description" content="Cada um responde no seu celular, sem espiar. No fim, a % de sintonia do casal.">
+<meta property="og:image" content="https://giogas-pm.github.io/sintonia/og.png">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#e11d74">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sintonia — teste de compatibilidade de casal","url":"https://giogas-pm.github.io/sintonia/","applicationCategory":"EntertainmentApplication","operatingSystem":"Web","inLanguage":"pt-BR","offers":{"@type":"Offer","price":"0","priceCurrency":"BRL"}}</script>
+<style>
+:root{--bg:#fff7fa;--card:#fff;--ink:#2a1320;--mut:#7a5a6a;--pri:#e11d74;--pri2:#7c3aed;--line:#f3d9e5;--ok:#16a34a}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+.wrap{max-width:560px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.8rem;line-height:1.2;margin:.2em 0 .4em}
+h2{font-size:1.3rem;margin:1.2em 0 .5em}
+.logo{font-weight:800;color:var(--pri);letter-spacing:.3px;text-decoration:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:14px 0;box-shadow:0 2px 10px rgba(225,29,116,.06)}
+label{display:block;font-weight:600;margin:10px 0 4px}
+input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;font-size:1rem}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:15px;font-size:1.05rem;font-weight:700;cursor:pointer;margin-top:14px;background:linear-gradient(90deg,var(--pri),var(--pri2));color:#fff;text-align:center;text-decoration:none}
+.btn.sec{background:#fff;color:var(--pri);border:2px solid var(--pri)}
+.btn.wa{background:#16a34a}
+.btn:disabled{opacity:.5}
+.mut{color:var(--mut);font-size:.93rem}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 16px;margin:9px 0;font-size:1rem;cursor:pointer;color:var(--ink)}
+.opt:hover,.opt.sel{border-color:var(--pri);background:#fff0f6}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--pri),var(--pri2));transition:width .3s}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;color:var(--pri2);background:#f1eaff;border-radius:99px;padding:3px 10px}
+.big{font-size:4.2rem;font-weight:900;line-height:1;background:linear-gradient(90deg,var(--pri),var(--pri2));-webkit-background-clip:text;background-clip:text;color:transparent;text-align:center;margin:10px 0}
+.center{text-align:center}
+.area{margin:10px 0}.area b{display:flex;justify-content:space-between}
+.blur{filter:blur(5px);user-select:none;pointer-events:none}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.92rem;margin:6px 0 12px}
+.row div{background:#fff7fa;border-radius:10px;padding:8px}
+.eq{color:var(--ok);font-weight:700}
+ul.clean{padding-left:18px}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;margin:10px 0;padding-left:38px;position:relative}
+.steps li:before{content:counter(s);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--pri);color:#fff;font-weight:700;display:grid;place-items:center}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#2a1320;color:#fff;padding:10px 16px;border-radius:12px;display:none;z-index:9}
+footer{margin-top:30px;font-size:.85rem;color:var(--mut)}
+footer a{color:var(--mut)}
+.hide{display:none}
+@media print{.noprint{display:none!important}body{background:#fff}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="logo" href="./">♥ Sintonia</a>
+  <main id="app"></main>
+  <footer class="noprint" id="foot">
+    <p>Guias: <a href="teste-de-casal/">teste de casal</a> · <a href="teste-de-casal/perguntas-para-casal/">perguntas para casal</a> · <a href="teste-de-casal/quiz-de-namorados/">quiz de namorados</a> · <a href="teste-de-casal/teste-de-compatibilidade-amorosa/">compatibilidade amorosa</a></p>
+    <p>Sintonia é um teste para diversão e conversa, não um diagnóstico. Guardamos só o primeiro nome e as respostas de múltipla escolha. Pagamento seguro via Mercado Pago (Pix ou cartão).</p>
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const SB_URL="https://diemqzngskmcuytkzjhr.supabase.co";
+const SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpZW1xem5nc2ttY3V5dGt6amhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4NDM0MDEsImV4cCI6MjA5ODQxOTQwMX0.w5-w8bU6qFQqIFBDOiNsUvOWbXqeOZSH6tveyLdADx0";
+const SB_H={apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'};
+const SITE="https://giogas-pm.github.io/sintonia/";
+const PRECO="R$14,90";
+const Q_SRC=new URLSearchParams(location.search).get('src')||'';
+const track=(e,slug,meta)=>{try{fetch(SB_URL+'/rest/v1/quiz_eventos',{method:'POST',headers:SB_H,body:JSON.stringify({evento:e,slug:slug||null,meta:Object.assign({src:Q_SRC||null},meta||{})})}).catch(()=>{})}catch(_){}};
+async function rpc(fn,args){const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:SB_H,body:JSON.stringify(args)});const t=await r.text();if(!r.ok)throw new Error(t);return t?JSON.parse(t):null}
+
+const AREAS=["Rotina","Dinheiro","Lazer","Futuro","Carinho"];
+const Q=[
+["Num sábado livre, o programa ideal é…",["Ficar em casa de pijama","Sair pra comer fora","Programa ao ar livre","Encontrar os amigos"],"Como seria o fim de semana perfeito pra cada um — e dá pra alternar?"],
+["Você funciona melhor…",["De manhã cedo","Tarde da noite","Depende do dia","Funciono melhor dormindo"],"Qual horário do dia é o \"de vocês\"? Dá pra proteger esse momento?"],
+["Bagunça em casa…",["Me incomoda muito","Incomoda um pouco","Quase nada","Que bagunça?"],"O que, de verdade, tira cada um do sério na casa?"],
+["Tarefas de casa deveriam ser…",["Divididas meio a meio","Cada um faz o que gosta","Quem tiver tempo faz","Terceirizar o que der"],"Qual tarefa cada um odeia — e qual não se importa de fazer?"],
+["Sobrou R$1.000 no mês. Você…",["Guarda tudo","Guarda metade, curte metade","Gasta numa viagem ou experiência","Compra algo que queria"],"O que o dinheiro significa pra cada um: segurança ou liberdade?"],
+["Dinheiro do casal deveria ser…",["Tudo junto","Conta conjunta pras despesas + cada um a sua","Cada um paga o seu","Proporcional ao que cada um ganha"],"Como vocês querem organizar as contas daqui pra frente?"],
+["Compra grande sem avisar o outro…",["Nunca","Até certo valor, tudo bem","Tranquilo","Depende do que for"],"Qual é o valor a partir do qual vale combinar antes?"],
+["Fatura do cartão estourou. Você…",["Entra em pânico","Resolve na hora","Vai levando","Faz parte da vida"],"Como cada um reage quando aperta — e como o outro pode ajudar?"],
+["Viagem dos sonhos…",["Praia paradisíaca","Cidade grande, museus e comida","Natureza e aventura","Resort com tudo incluso"],"Montem juntos a próxima viagem: cada um escolhe um item obrigatório."],
+["Filme de sexta à noite…",["Comédia","Terror ou suspense","Romance","Ação ou ficção"],"Façam um rodízio de quem escolhe o filme — vale sofrer junto."],
+["Na festa, você é quem…",["Dança primeiro","Fica no papo","Vai embora cedo","Preferia nem ter ido"],"Como sair juntos de um jeito que os dois curtam?"],
+["Nas redes sociais, você…",["Posta tudo","Posta às vezes","Só olha","Quase não usa"],"O que pode e o que não pode ser postado sobre vocês?"],
+["Filhos…",["Quero logo","Quero, mais pra frente","Talvez","Não quero"],"Essa conversa vale ter com calma: o que cada um imagina pro futuro?"],
+["Daqui a 10 anos, morando…",["Numa cidade grande","No interior","Na praia","Fora do Brasil"],"Se desse pra morar em qualquer lugar, onde seria — e por quê?"],
+["Casamento ideal…",["Festão com todo mundo","Algo pequeno e íntimo","Só o cartório","Papel não é necessário"],"O que um casamento (ou a falta dele) significa pra cada um?"],
+["Pet em casa…",["Cachorro","Gato","Os dois","Nenhum"],"Pet é responsabilidade de quem? Combinem antes de adotar."],
+["Você se sente amado(a) com…",["Palavras e elogios","Tempo de qualidade junto","Presentes e surpresas","Toque e carinho"],"Cada um conta o último momento em que se sentiu muito amado(a)."],
+["Depois de uma briga, você prefere…",["Conversar na hora","Esfriar a cabeça primeiro","Deixar passar","Resolver com um abraço"],"Combinem um jeito de voltar a se falar depois de uma briga."],
+["Data especial ideal…",["Surpresa elaborada","Jantar a dois","Um presente pensado","Nem ligo muito pra data"],"Qual data importa mais pra cada um — e como comemorar?"],
+["Ciúme…",["Não sinto","Um pouquinho é normal","Sou ciumento(a)","Depende da situação"],"O que deixa cada um inseguro — e o que o outro pode fazer?"]
+];
+const FAIXAS=[[80,"Almas gêmeas","Vocês pensam parecido em quase tudo. Rara essa sintonia — cuidem dela."],[65,"Muita sintonia","Vocês combinam no que importa e têm diferenças suficientes pra não cair na rotina."],[50,"Opostos que se completam","Metade igual, metade diferente: vocês aprendem muito um com o outro."],[35,"Aprendendo juntos","Muitas visões diferentes — ótimo assunto pra conversas longas (e divertidas)."],[0,"Caos apaixonado","Quase tudo diferente, e mesmo assim aqui estão vocês. Isso diz muito."]];
+const faixa=p=>FAIXAS.find(f=>p>=f[0]);
+const pct=a=>Math.round(a/20*100);
+const $=s=>document.querySelector(s);
+const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
+function slugNovo(){const a='abcdefghijkmnpqrstuvwxyz23456789';let s='';const r=crypto.getRandomValues(new Uint8Array(10));r.forEach(x=>s+=a[x%a.length]);return s}
+function linkB(slug){return SITE+'#r='+slug}
+function linkA(slug){return SITE+'#c='+slug}
+function wa(txt){return 'https://wa.me/?text='+encodeURIComponent(txt)}
+function copy(t){(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('Link copiado!')).catch(()=>prompt('Copie o link:',t))}
+function meus(){try{return JSON.parse(localStorage.getItem('sintonia_meus')||'{}')}catch(_){return {}}}
+function lsGet(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(_){return null}}
+function lsSet(k,v){try{v===null?localStorage.removeItem(k):localStorage.setItem(k,JSON.stringify(v))}catch(_){}}
+function salvar(slug,papel,nomes){try{const k='sintonia_meus';const m=meus();m[slug]={p:papel,n:nomes||''};localStorage.setItem(k,JSON.stringify(m))}catch(_){}}
+
+/* ---------- telas ---------- */
+function retomar(){
+  const m=meus(),ks=Object.keys(m).slice(-3).reverse(),dr=lsGet('sintonia_rasc_novo');
+  if(!ks.length&&!dr)return '';
+  return `<div class="card"><b>Seus testes neste celular</b>${dr?`<a class="btn sec" href="#" id="rasc">Continuar respondendo (${dr.i}/20)</a>`:''}${ks.map(k=>`<a class="btn sec" href="#${(m[k].p||m[k])==='a'?'c':'r'}=${k}">${esc(m[k].n||'Ver teste')} →</a>`).join('')}</div>`;
+}
+function home(){
+  $('#foot').classList.remove('hide');
+  $('#app').innerHTML=`
+  ${retomar()}
+  <span class="tag">Teste de compatibilidade de casal</span>
+  <h1>Qual é a sintonia de vocês dois?</h1>
+  <p>20 perguntas rápidas. <b>Cada um responde no seu celular</b>, sem ver as respostas do outro. No fim, vocês descobrem a % de sintonia do casal. <b>Grátis</b>, leva 3 minutos.</p>
+  <div class="card">
+    <label for="na">Seu primeiro nome</label><input id="na" maxlength="30" autocomplete="given-name" placeholder="Ex.: Ana">
+    <label for="nb">Primeiro nome do seu par</label><input id="nb" maxlength="30" placeholder="Ex.: Lucas">
+    <button class="btn" id="go">Começar o teste ♥</button>
+    <p class="mut center" style="margin:.6em 0 0">Sem cadastro, sem e-mail.</p>
+  </div>
+  <h2>Como funciona</h2>
+  <ol class="steps"><li>Você responde as 20 perguntas sobre você (rotina, dinheiro, lazer, futuro e carinho).</li><li>Manda o link pro seu par pelo WhatsApp. Ele(a) responde sem ver as suas respostas.</li><li>Os dois veem a % de sintonia e podem compartilhar nos Stories.</li></ol>
+  <p class="mut">Quer ir além? O <b>relatório completo</b> (${PRECO}) mostra a sintonia em cada área, as respostas lado a lado e as conversas que valem ter.</p>`;
+  if($('#rasc'))$('#rasc').onclick=e=>{e.preventDefault();const dr=lsGet('sintonia_rasc_novo');quiz(dr.a,dr.b,'a',null)};
+  $('#go').onclick=()=>{const a=$('#na').value.trim(),b=$('#nb').value.trim();if(!a||!b){toast('Preencham os dois nomes');return}
+    track('quiz_start');quiz(a,b,'a',null)};
+  track(Q_SRC==='seo'?'seo_land':'visit');
+}
+
+function quiz(nomeA,nomeB,papel,slug){
+  $('#foot').classList.add('hide');
+  const RK='sintonia_rasc_'+(slug||'novo');
+  const dr=lsGet(RK);const resp=(dr&&dr.resp)||new Array(20).fill(null);let i=(dr&&dr.i)||0;
+  const guarda=()=>lsSet(RK,{a:nomeA,b:nomeB,resp,i});
+  const eu=papel==='a'?nomeA:nomeB;
+  function draw(){
+    const q=Q[i];
+    $('#app').innerHTML=`<div class="card">
+      <div class="mut" style="display:flex;justify-content:space-between"><span>${esc(eu)}, responda sobre você</span><span>${i+1}/20</span></div>
+      <div class="bar" style="margin:8px 0 14px"><i style="width:${i/20*100}%"></i></div>
+      <span class="tag">${AREAS[Math.floor(i/4)]}</span>
+      <h2 style="margin-top:.5em">${q[0]}</h2>
+      ${q[1].map((o,k)=>`<button class="opt ${resp[i]===k?'sel':''}" aria-pressed="${resp[i]===k}" data-k="${k}">${o}</button>`).join('')}
+      ${i>0?'<button class="btn sec" id="back" style="margin-top:6px">← Voltar</button>':''}
+    </div>`;
+    document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{resp[i]=+b.dataset.k;if(i<19){i++;guarda();draw()}else{guarda();fim()}});
+    if(i>0)$('#back').onclick=()=>{i--;draw()};
+  }
+  async function fim(){
+    $('#app').innerHTML='<div class="card center"><p>Salvando suas respostas…</p></div>';
+    try{
+      if(papel==='a'){
+        let ok=false,s;for(let t=0;t<3&&!ok;t++){s=slugNovo();ok=await rpc('quiz_criar',{p_slug:s,p_nome_a:nomeA,p_nome_b:nomeB,p_resp:resp})}
+        if(!ok)throw new Error('criar');
+        lsSet(RK,null);salvar(s,'a',nomeA+' ♥ '+nomeB);track('quiz_criado',s);history.replaceState(null,'','#c='+s);convite(s,nomeA,nomeB,true);
+      }else{
+        const ok=await rpc('quiz_responder',{p_slug:slug,p_resp:resp});
+        lsSet(RK,null);salvar(slug,'b',nomeA+' ♥ '+nomeB);track('b_respondeu',slug);abrir(slug);
+        if(!ok)toast('Esse teste já tinha sido respondido');
+      }
+    }catch(e){$('#app').innerHTML=`<div class="card center"><p>Não consegui salvar (internet?).</p><button class="btn" id="rt">Tentar de novo</button></div>`;$('#rt').onclick=fim}
+  }
+  draw();
+}
+
+function convite(slug,nomeA,nomeB,novo){
+  $('#foot').classList.add('hide');
+  const txt=`${nomeB}, fiz um teste de compatibilidade de casal e agora é sua vez 💘 São 20 perguntas, você não vê as minhas respostas. Quero ver nossa % de sintonia: ${linkB(slug)}`;
+  $('#app').innerHTML=`<div class="card">
+    ${novo?'<span class="tag">Suas respostas foram salvas ✓</span>':'<span class="tag">Esperando '+esc(nomeB)+'</span>'}
+    <h1>Agora é a vez de ${esc(nomeB)}</h1>
+    <p>Mande o link pro seu par. Assim que ${esc(nomeB)} responder, o resultado aparece <b>pra vocês dois</b>.</p>
+    <a class="btn wa" id="wa" href="${wa(txt)}" target="_blank" rel="noopener">Enviar no WhatsApp</a>
+    <button class="btn sec" id="cp">Copiar link do par</button>
+    <p class="mut" style="margin-top:16px">Guarde o <b>seu</b> link pra ver o resultado depois (também fica salvo neste celular):<br><a href="${linkA(slug)}">${linkA(slug)}</a></p>
+    <button class="btn sec" id="up">Já respondeu? Ver resultado</button>
+  </div>`;
+  $('#wa').onclick=()=>track('convite_share',slug,{via:'wa'});
+  $('#cp').onclick=()=>{track('convite_share',slug,{via:'copy'});copy(linkB(slug))};
+  $('#up').onclick=()=>abrir(slug);
+}
+
+async function abrir(slug,papelHash){
+  $('#app').innerHTML='<div class="card center"><p>Carregando…</p></div>';
+  let d;try{d=await rpc('quiz_get',{p_slug:slug})}catch(e){d=undefined}
+  if(d===undefined){$('#app').innerHTML='<div class="card center"><p>Sem conexão. Tente de novo.</p><button class="btn" onclick="route()">Tentar de novo</button></div>';return}
+  if(!d){$('#app').innerHTML='<div class="card center"><p>Teste não encontrado. Confira o link.</p><a class="btn" href="./">Fazer um teste novo</a></div>';return}
+  if(!d.respondido){
+    const eu=meus()[slug];
+    if(papelHash==='r'&&eu&&(eu.p||eu)==='a'&&!sessionStorage.getItem('sintonia_forca_'+slug)){souA(slug,d);return}
+    if(papelHash==='r'){track('b_open',slug);introB(slug,d)}else convite(slug,d.nome_a,d.nome_b,false);
+    return;
+  }
+  resultado(slug,d);
+}
+
+function souA(slug,d){
+  $('#app').innerHTML=`<div class="card center"><h1>Esse link é do(a) ${esc(d.nome_b)} 😉</h1>
+    <p>Você já respondeu a sua parte. Esse link é pra ${esc(d.nome_b)} responder no celular dele(a) — se você abrir, estraga a graça.</p>
+    <button class="btn" id="vt">Voltar e mandar pro meu par</button>
+    <button class="btn sec" id="fc">Sou ${esc(d.nome_b)}, estamos no mesmo celular</button></div>`;
+  $('#vt').onclick=()=>{location.hash='c='+slug};
+  $('#fc').onclick=()=>{try{sessionStorage.setItem('sintonia_forca_'+slug,'1')}catch(_){};track('b_open',slug,{mesmo_cel:1});introB(slug,d)};
+}
+function introB(slug,d){
+  $('#foot').classList.add('hide');
+  $('#app').innerHTML=`<div class="card center">
+    <span class="tag">Teste de compatibilidade de casal</span>
+    <h1>${esc(d.nome_a)} quer saber a sintonia de vocês 💘</h1>
+    <p>São 20 perguntas rápidas sobre <b>você</b>. Você não vê as respostas de ${esc(d.nome_a)}, e vice-versa. No fim, os dois veem a % de sintonia.</p>
+    <button class="btn" id="go">Responder agora (3 min)</button>
+  </div>`;
+  $('#go').onclick=()=>quiz(d.nome_a,d.nome_b,'b',slug);
+}
+
+function resultado(slug,d){
+  $('#foot').classList.remove('hide');
+  const p=pct(d.acertos),f=faixa(p);
+  const pago=new URLSearchParams(location.search).get('pago');
+  track('resultado_view',slug,{p});
+  let rel='';
+  if(d.unlocked){rel=relatorio(d);track('relatorio_view',slug)}
+  else rel=`<div class="card noprint">
+    <h2 style="margin-top:0">Relatório completo do casal</h2>
+    ${teaser(d)}
+    <ul class="clean"><li>Sintonia em cada área: rotina, dinheiro, lazer, futuro e carinho</li><li>As 20 respostas de vocês <b>lado a lado</b></li><li>Onde vocês divergem + <b>as conversas que valem ter</b></li><li>Pra guardar ou imprimir. Libera pros dois links.</li></ul>
+    <button class="btn" id="pay">Ver relatório completo · ${PRECO}</button>
+    <p class="mut center" style="margin:.5em 0 0">Pagamento único via Mercado Pago · Pix ou cartão</p>
+  </div>`;
+  $('#app').innerHTML=`<div class="card center">
+    <div class="mut">${esc(d.nome_a)} ♥ ${esc(d.nome_b)}</div>
+    <div class="big">${p}%</div>
+    <h2 style="margin:.2em 0">${f[1]}</h2>
+    <p>${f[2]}</p>
+    <p class="mut">Vocês responderam igual em ${d.acertos} de 20 perguntas.</p>
+    <button class="btn" id="st">Compartilhar nos Stories</button>
+  </div>
+  ${pago==='ok'&&!d.unlocked?'<div class="card center" id="aguarda"><p>Pagamento recebido! Liberando o relatório…</p></div>':''}
+  ${pago==='pendente'&&!d.unlocked?'<div class="card center"><p>Pagamento pendente. Assim que o Mercado Pago aprovar (Pix costuma levar segundos), o relatório libera aqui neste link.</p></div>':''}
+  ${rel}
+  <div class="card center noprint"><p><b>Desafie outro casal</b> e vejam quem tem mais sintonia.</p><a class="btn sec" id="amg" href="${wa('Fizemos o teste de compatibilidade de casal e deu '+p+'% 💘 Duvido vocês baterem: '+SITE+'?src=amigos')}" target="_blank" rel="noopener">Mandar pra um casal amigo</a><a class="btn sec" href="./">Fazer um teste novo</a></div>`;
+  $('#st').onclick=()=>stories(d,p,f,slug);
+  $('#amg').onclick=()=>track('convite_share',slug,{via:'amigos'});
+  if(!d.unlocked){$('#pay').onclick=()=>checkout(slug);track('paywall_view',slug)}
+  else{const b=document.createElement('button');b.className='btn sec noprint';b.textContent='Imprimir / salvar em PDF';b.onclick=()=>print();$('#app').appendChild(b)}
+  if(pago==='ok'&&!d.unlocked)poll(slug);
+}
+
+function teaser(d){
+  const ar=d.areas||[];let top=0;ar.forEach((v,k)=>{if(v>ar[top])top=k});
+  return `<p class="mut">Onde vocês mais combinam:</p><div class="area"><b><span>${AREAS[top]}</span><span>${ar[top]??'?'}%</span></b><div class="bar"><i style="width:${ar[top]||0}%"></i></div></div>
+  <p class="mut" style="margin-top:14px">E as outras 4 áreas — incluindo onde vocês <b>mais divergem</b>:</p>
+  <div class="blur" aria-hidden="true">${AREAS.filter((a,k)=>k!==top).map(a=>`<div class="area"><b><span>${a}</span><span>??%</span></b><div class="bar"><i style="width:50%"></i></div></div>`).join('')}</div>`;
+}
+function relatorio(d){
+  const A=d.resp_a,B=d.resp_b;
+  const areas=AREAS.map((n,k)=>{let c=0;for(let j=k*4;j<k*4+4;j++)if(A[j]===B[j])c++;return [n,c*25]});
+  const fortes=areas.filter(a=>a[1]>=75).map(a=>a[0]);
+  const div=[];for(let j=0;j<20;j++)if(A[j]!==B[j])div.push(j);
+  return `<div class="card">
+    <h2 style="margin-top:0">Sintonia por área</h2>
+    ${areas.map(a=>`<div class="area"><b><span>${a[0]}</span><span>${a[1]}%</span></b><div class="bar"><i style="width:${a[1]}%"></i></div></div>`).join('')}
+    ${fortes.length?`<p><b>Ponto forte do casal:</b> ${fortes.join(', ')}.</p>`:''}
+  </div>
+  <div class="card">
+    <h2 style="margin-top:0">As conversas que valem ter</h2>
+    ${div.length?`<p class="mut">Nas ${div.length} perguntas em que vocês responderam diferente, um bom ponto de partida:</p><ol>${div.map(j=>`<li style="margin:6px 0"><b>${AREAS[Math.floor(j/4)]}:</b> ${Q[j][2]}</li>`).join('')}</ol>`:'<p>Vocês responderam igual em tudo. Sério. Guardem esse print.</p>'}
+  </div>
+  <div class="card">
+    <h2 style="margin-top:0">Respostas lado a lado</h2>
+    ${Q.map((q,j)=>`<div><b>${j+1}. ${q[0]}</b>${A[j]===B[j]?' <span class="eq">✓ igual</span>':''}<div class="row"><div><span class="mut">${esc(d.nome_a)}</span><br>${q[1][A[j]]}</div><div><span class="mut">${esc(d.nome_b)}</span><br>${q[1][B[j]]}</div></div></div>`).join('')}
+  </div>`;
+}
+
+async function checkout(slug){
+  track('checkout_open',slug);const b=$('#pay');b.disabled=true;b.textContent='Abrindo pagamento…';
+  try{const r=await fetch(SB_URL+'/functions/v1/mp-preferencia-sintonia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({slug})});const j=await r.json();
+    if(j.ok&&j.init_point){location.href=j.init_point;return}throw new Error(j.motivo)}
+  catch(e){b.disabled=false;b.textContent='Ver relatório completo · '+PRECO;toast('Não consegui abrir o pagamento. Tente de novo.')}
+}
+async function poll(slug){for(let t=0;t<20;t++){await new Promise(r=>setTimeout(r,3000));try{const d=await rpc('quiz_get',{p_slug:slug});if(d&&d.unlocked){history.replaceState(null,'',location.pathname+'#c='+slug);resultado(slug,d);return}}catch(_){}}
+  const a=$('#aguarda');if(a){a.innerHTML='<p>O Mercado Pago ainda está confirmando (pode levar alguns minutos). O relatório libera neste mesmo link.</p><button class="btn sec" id="vn">Verificar agora</button>';$('#vn').onclick=()=>poll(slug)}}
+
+function stories(d,p,f,slug){
+  track('stories_share',slug);
+  const c=document.createElement('canvas');c.width=1080;c.height=1920;const x=c.getContext('2d');
+  const g=x.createLinearGradient(0,0,1080,1920);g.addColorStop(0,'#e11d74');g.addColorStop(1,'#7c3aed');x.fillStyle=g;x.fillRect(0,0,1080,1920);
+  x.fillStyle='#fff';x.textAlign='center';
+  x.font='600 54px system-ui,sans-serif';x.fillText('Nossa sintonia de casal',540,520);
+  const nomes=(d.nome_a+' ♥ '+d.nome_b);x.font='700 '+(nomes.length>22?58:76)+'px system-ui,sans-serif';x.fillText(nomes,540,640);
+  x.font='900 300px system-ui,sans-serif';x.fillText(p+'%',540,1000);
+  x.font='800 80px system-ui,sans-serif';x.fillText(f[1],540,1140);
+  x.font='500 46px system-ui,sans-serif';x.fillText('E vocês? Façam o teste:',540,1560);
+  x.font='700 50px system-ui,sans-serif';x.fillText('giogas-pm.github.io/sintonia',540,1640);
+  c.toBlob(async b=>{const file=new File([b],'sintonia.png',{type:'image/png'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],text:'Nossa sintonia: '+p+'% 💘 '+SITE+'?src=stories'});return}catch(_){}}
+    const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='sintonia.png';a.click();toast('Imagem salva! Poste nos Stories.')},'image/png');
+}
+
+function route(){
+  const h=new URLSearchParams(location.hash.slice(1));
+  if(h.get('r'))return abrir(h.get('r'),'r');
+  if(h.get('c'))return abrir(h.get('c'),'c');
+  home();
+}
+window.addEventListener('hashchange',route);
+route();
+</script>
+</body>
+</html>
