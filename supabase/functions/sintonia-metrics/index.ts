@@ -14,7 +14,7 @@ Deno.serve(async (req) => {
   const url = new URL(req.url);
   if (KEY && url.searchParams.get("k") !== KEY) return json({ ok: false, motivo: "nao_autorizado" }, 401);
   try {
-    const ev = ["visit", "seo_land", "quiz_start", "quiz_criado", "convite_share", "b_open", "b_respondeu", "resultado_view", "stories_share", "paywall_view", "checkout_open", "relatorio_view"];
+    const ev = ["visit", "engaged", "seo_land", "quiz_start", "quiz_criado", "convite_share", "b_open", "b_respondeu", "resultado_view", "stories_share", "paywall_view", "checkout_open", "relatorio_view"];
     const [casais, completos, pagos, ...n] = await Promise.all([countOf("quiz_casais"), countOf("quiz_casais?resp_b=not.is.null"), countOf("quiz_casais?unlocked=eq.true"), ...ev.map((e) => countOf(`quiz_eventos?evento=eq.${e}`))]);
     const funil: Record<string, number> = {};
     ev.forEach((e, i) => (funil[e] = n[i]));
